@@ -1,6 +1,6 @@
 import axios from "axios";
 import useStorage from "src/lib/hooks/useStorage";
-import {MAIN_URL, apiPath1, apiPath2} from "./apiConfig";
+import {apiPath1, apiPath2} from "./apiConfig";
 
 export const getUpcomingExams = async () => {
   //alert('upcoming')

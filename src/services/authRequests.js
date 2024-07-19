@@ -19,14 +19,12 @@ export const checkAuth = async () => {
 export const login = async ({ user_name, password }) => {
  
   const res = await axios.post(`${apiPath1}/login`, {
-    user_name,
-    password,
+    login_id: user_name,
+    password: password,
   });
   
   const { setToken, setUserId } = useStorage();
-  
   setToken(res.data.data.auth_key);
- // alert(res.data.data.id)
   setUserId(res.data.data.id);
   
  
@@ -40,8 +38,9 @@ export const logout = async () => {
 };
 
 export const getStudentDetails = async () => {
-  
+ 
   const { user_id, token, setUserDept, setUserSec, setStudId } = useStorage();
+
 
   if (!user_id || !token) {
     throw { error: "no userid or no token" };
@@ -49,8 +48,6 @@ export const getStudentDetails = async () => {
   try {
     const res = await axios.post(
       `${apiPath2}/profile`,
-  //`${MAIN_URL}/students/getstudent`,
-  
       {
         id: user_id,
       },
@@ -60,14 +57,12 @@ export const getStudentDetails = async () => {
            "Authorization": `Bearer ${token}`
         },
       }
-    );
-    //console.log(res.data.status)
+    );  
 
     if (res.data.status === true) {
       setUserSec(res.data.data.section_id);
       setUserDept(res.data.data.dept_id);
       setStudId(res.data.data.id);
-//alert(res.data.data.id)
       return res.data.data;
     } else {
       checkInvalidToken(res.data.msg);

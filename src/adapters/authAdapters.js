@@ -16,6 +16,8 @@ export function useAuth({ redirectTo = "", redirectIfFound = false } = {}) {
     error,
   } = useSWR("auth_user", getStudentDetails);
 
+
+
   const router = useRouter();
 
   //console.log(user);
